@@ -15,7 +15,7 @@ export default function MessageInputArea() {
         const msg = {
             message: message,
             roomType: 1,
-            receivedId: '123'
+            receivedId: '123456789'
         }
         socket.emit("message", msg);
         setMessage('');
