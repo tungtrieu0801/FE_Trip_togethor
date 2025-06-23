@@ -8,7 +8,7 @@ import {
 } from '@ant-design/icons';
 export default function MessageInputArea() {
     const [message, setMessage] = useState('');
-    const [height, setHeight] = useState(32); // chiều cao mặc định
+    const [height, setHeight] = useState(32);
     const textareaRef = useRef(null);
 
     const handleSend = () => {
