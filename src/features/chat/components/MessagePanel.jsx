@@ -19,13 +19,13 @@ export default function MessagePanel() {
     return (
         <div className="message-panel">
             <h2>Message Panel</h2>
-            {/* <div>
+            <div>
                 {messages.map((msg, idx) => (
                     <div key={idx}>
-                        <p>{msg.data} from {msg.from}</p>
+                        <p>{msg.data.message} from {msg.receivedId}</p>
                     </div>
                 ))}
-            </div> */}
+            </div>
         </div>
     );
 }
