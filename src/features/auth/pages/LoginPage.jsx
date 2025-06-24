@@ -3,11 +3,12 @@ import { Form, Input, Button, Typography, message } from 'antd';
 import { login } from '../service/AuthService';
 import { useNavigate } from 'react-router-dom';
 import socket from '../../../configs/socketConnect';
+import { userState } from '../../../state/user.state';
 const { Text, Title } = Typography;
 
 export default function LoginPage() {
-
-
+  const setCurrentUserId = userState(state => state.setCurrentUserId);
+  const { currentUserId } = userState();
   useEffect(() => {
     function handleConnect() {
       console.log("Connected to socket server");
@@ -30,12 +31,10 @@ export default function LoginPage() {
   const handleLogin = async (values) => {
     console.log('Login info:', values);
     const response = await login(values.phone, values.password);
-    if (response.status === 201) {
-      localStorage.setItem('token', response.data.data.accessToken);
-      message.success(response.data.message);
-
-  
-
+    if (response.statuCode === 200) {
+      setCurrentUserId(response.data.id);
+      localStorage.setItem('token', response.data.accessToken);
+      message.success(response.message);
       navigate('/home');
     } else {
       console.error('Đăng nhập thất bại:', response.data.message);

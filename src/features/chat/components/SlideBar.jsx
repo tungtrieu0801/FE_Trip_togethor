@@ -2,12 +2,14 @@ import { useEffect, useState } from "react";
 import socket from "../../../configs/socketConnect";
 import Search from "antd/es/input/Search";
 import axiosClientChat from "../../../configs/ChatAxiosConfig";
+import { roomState } from "../../../state/room.state";
 
 export default function SlideBar() {
 
     const [input, setInput] = useState('');
     const [result, setResult] = useState('');
     const [rooms, setRooms] = useState([]);
+    const setRoomId = roomState(state => state.setReceiverId);
 
     useEffect(() => {
         const listRooms = async () => {
@@ -67,9 +69,12 @@ export default function SlideBar() {
                     <div
                         key={room._id}
                         className="cursor-pointer py-1 bg-yellow-200"
-                        onClick={() => joinRoom(room.roomSingleId)}
+                        onClick={() => {
+                            joinRoom(room.roomSingleId),
+                            setRoomId(room.isGroup ? room._id.toString() : room.roomSingleId)
+                        }}
                     >
-                        {room._id}
+                        {room.name}
                     </div>
                 ))}
                 <div>pk</div>

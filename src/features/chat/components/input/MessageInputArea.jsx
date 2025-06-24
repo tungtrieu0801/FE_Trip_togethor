@@ -6,16 +6,18 @@ import { BsMic } from "react-icons/bs";
 import {
     SmileOutlined
 } from '@ant-design/icons';
+import { roomState } from "../../../../state/room.state";
 export default function MessageInputArea() {
     const [message, setMessage] = useState('');
     const [height, setHeight] = useState(32);
     const textareaRef = useRef(null);
+    const receiverId = roomState(state => state.receiverId);
 
     const handleSend = () => {
         const msg = {
             message: message,
             roomType: 1,
-            receivedId: '123456789'
+            receivedId: receiverId
         }
         socket.emit("message", msg);
         setMessage('');
